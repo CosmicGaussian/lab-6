@@ -1,8 +1,25 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int search(int numbers[], int low, int high, int value) 
 {
-	return -1;
+	if(low > high){
+        return -1;//for the value not found
+    }
+    //for the value found at d
+    int d = low + (high - low)/2;
+
+    if(numbers[d] == value){
+        return d;//the value was found at d
+    }
+    else if(numbers[d] < value){
+        //recursion
+        return search(numbers, d+1, high,value);//this searches the values on the right
+    }
+    else{
+        //searches left
+        return search(numbers, low, d-1, value);
+    }
 }
 
 void printArray(int numbers[], int sz)
@@ -32,7 +49,7 @@ int main(void)
 	while (numInputs-- > 0)
 	{
 		fscanf(inFile, " %d\n", &countOfNums);
-		numArray = (int *) malloc(countOfNums * sizeof(int));
+		numArray = (int *)malloc(countOfNums * sizeof(int));
 		average = 0;
 		for (i = 0; i < countOfNums; i++)
 		{
